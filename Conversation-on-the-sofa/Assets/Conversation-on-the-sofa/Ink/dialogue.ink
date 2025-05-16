@@ -8,6 +8,15 @@ Amy: I made you a coffee...
     Amy: I didn't know if you were going to come...
     -> neutral1
 
+    + [I didn't expect you to do it for me]
+    Amy: I didn't expect you to do it for me
+    Amy: Just like we used to do...
+    Ethan: Sometimes I wonder what happened to us
+    -> nostalgia1
+
+        === nostalgia1 ===
+        Ethan: It almost seems like another life
+        
     === neutral1 ===
     Ethan: Thanks, I wasn't sure if I should, but here I am.
 
@@ -56,9 +65,6 @@ Amy: I made you a coffee...
                 (Ethan lowers the look and stays in silence)
 
                 -> final
-            
-    // + [I didn't expect you to do it for me]
-    // Amy: I didn't expect you to do it for me
 
 === final ===
 # Visual cue

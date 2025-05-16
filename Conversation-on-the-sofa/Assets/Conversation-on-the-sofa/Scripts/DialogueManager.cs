@@ -11,6 +11,9 @@ public class DialogueManager : MonoBehaviour
     public Transform choicesContainer;
 
     private Story story;
+    private string currentLine;
+    private bool waitingForInput = false;
+    private bool showingChoices = false;
 
     void Start()
     {
@@ -18,7 +21,7 @@ public class DialogueManager : MonoBehaviour
         {
             story = new Story(inkJSONAsset.text);
             story.ChoosePathString("start");
-            RefreshView();
+            ContinueStory();
         }
         else
         {
@@ -26,32 +29,74 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void RefreshView()
+    void Update()
     {
-        dialogueText.text = "";
-        foreach (Transform child in choicesContainer)
-            Destroy(child.gameObject);
-
-        while (story.canContinue)
+        if (waitingForInput && !showingChoices)
         {
-            string nextLine = story.Continue().Trim();
-            Debug.Log("Texto de Ink: " + nextLine);
-            dialogueText.text += nextLine + "\n";
-        }
-
-        if (story.currentChoices.Count > 0)
-        {
-            foreach (Choice choice in story.currentChoices)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
-                Debug.Log("Opción disponible: " + choice.text);
-
-                GameObject button = Instantiate(choiceButtonPrefab, choicesContainer);
-                button.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
-                button.GetComponent<Button>().onClick.AddListener(() => {
-                    story.ChooseChoiceIndex(choice.index);
-                    RefreshView();
-                });
+                ContinueStory();
             }
         }
     }
+
+    void ContinueStory()
+    {
+        if (story.canContinue)
+        {
+            string line = story.Continue().Trim();
+            dialogueText.text = line;
+            Debug.Log("Texto de Ink: " + line);
+            waitingForInput = true;
+            showingChoices = false;
+        }
+        else if (story.currentChoices.Count > 0)
+        {
+            ShowChoices();
+            showingChoices = true;
+            waitingForInput = false;
+        }
+        else
+        {
+            dialogueText.text = "Fin del diálogo.";
+            waitingForInput = false;
+            showingChoices = false;
+        }
+    }
+
+    void ShowChoices()
+    {
+        dialogueText.text  ="";
+        // Limpia botones anteriores
+        foreach (Transform child in choicesContainer)
+            Destroy(child.gameObject);
+
+        Debug.Log("Total de opciones disponibles: " + story.currentChoices.Count);
+
+        for (int i = 0; i < story.currentChoices.Count; i++)
+        {
+            Choice choice = story.currentChoices[i];
+
+            GameObject buttonGO = Instantiate(choiceButtonPrefab, choicesContainer, false);
+
+            TextMeshProUGUI buttonText = buttonGO.GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                buttonText.text = choice.text;
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró TextMeshProUGUI dentro del botón.");
+            }
+
+            int choiceIndex = choice.index;
+            buttonGO.GetComponent<Button>().onClick.AddListener(() => {
+                story.ChooseChoiceIndex(choiceIndex);
+                ContinueStory();
+            });
+
+            Debug.Log("Opción creada: " + choice.text);
+        }
+    }
+
 }
