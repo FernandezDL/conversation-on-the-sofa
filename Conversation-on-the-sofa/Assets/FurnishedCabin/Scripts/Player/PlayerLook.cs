@@ -45,31 +45,31 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        CameraRotation();
+        KeyboardRotation();
     }
 
-    private void CameraRotation()
+    private void KeyboardRotation()
     {
-        float mouseX = Input.GetAxis(mouseXInputName) * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis(mouseYInputName) * mouseSensitivity * Time.deltaTime;
+        float horizontal = Input.GetAxis("Horizontal") * mouseSensitivity * Time.deltaTime;
+        float vertical = Input.GetAxis("Vertical") * mouseSensitivity * Time.deltaTime;
 
-        xAxisClamp += mouseY;
+        xAxisClamp += vertical;
 
         if (xAxisClamp > 90.0f)
         {
             xAxisClamp = 90.0f;
-            mouseY = 0.0f;
+            vertical = 0.0f;
             ClampXAxisRotationToValue(270.0f);
         }
         else if (xAxisClamp < -90.0f)
         {
             xAxisClamp = -90.0f;
-            mouseY = 0.0f;
+            vertical = 0.0f;
             ClampXAxisRotationToValue(90.0f);
         }
 
-        transform.Rotate(Vector3.left * mouseY);
-        playerBody.Rotate(Vector3.up * mouseX);
+        transform.Rotate(Vector3.left * vertical);
+        playerBody.Rotate(Vector3.up * horizontal);
     }
 
     private void ClampXAxisRotationToValue(float value)
