@@ -17,6 +17,9 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         if (inkJSONAsset != null)
         {
             story = new Story(inkJSONAsset.text);
@@ -91,12 +94,16 @@ public class DialogueManager : MonoBehaviour
 
             int choiceIndex = choice.index;
             buttonGO.GetComponent<Button>().onClick.AddListener(() => {
+                ClearChoices();
                 story.ChooseChoiceIndex(choiceIndex);
                 ContinueStory();
             });
-
-            Debug.Log("Opción creada: " + choice.text);
         }
     }
 
+    void ClearChoices()
+    {
+        foreach (Transform child in choicesContainer)
+            Destroy(child.gameObject);
+    }
 }
