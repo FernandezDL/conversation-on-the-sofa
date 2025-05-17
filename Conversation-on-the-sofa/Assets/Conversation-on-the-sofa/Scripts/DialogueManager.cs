@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Choice Buttons")]
     public GameObject choiceButtonPrefab;
     public Transform choicesContainer;
-    
+
     [Header("Slap Popup")]
     public GameObject slapPopup;
     private bool slapPopupActive = false;
@@ -23,6 +24,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Male Character")]
     public GuyPath guyPath;
 
+    [Header("Fade Panel")]
+    public CanvasGroup fadePanel;
 
     private Story story;
     private Coroutine typingCoroutine;
@@ -77,12 +80,12 @@ public class DialogueManager : MonoBehaviour
     void ContinueStory()
     {
         if (story.canContinue)
-        { 
+        {
             dialoguePanel.SetActive(true);
             string line = story.Continue().Trim();
             List<string> tags = story.currentTags;
-            
-           if (typingCoroutine != null)
+
+            if (typingCoroutine != null)
                 StopCoroutine(typingCoroutine);
 
             typingCoroutine = StartCoroutine(TypeLine(line));
@@ -103,6 +106,11 @@ public class DialogueManager : MonoBehaviour
 
                 return;
             }
+            else if (tags.Contains("fadeOut"))
+            {
+                StartCoroutine(FadeAndLoadScene("FinalScene"));
+                return;
+            }
         }
         else if (story.currentChoices.Count > 0)
         {
@@ -121,8 +129,8 @@ public class DialogueManager : MonoBehaviour
 
     void ShowChoices()
     {
-        dialogueText.text  ="";
-        dialoguePanel.SetActive(false); 
+        dialogueText.text = "";
+        dialoguePanel.SetActive(false);
 
         foreach (Transform child in choicesContainer)
             Destroy(child.gameObject);
@@ -145,14 +153,15 @@ public class DialogueManager : MonoBehaviour
             }
 
             int choiceIndex = choice.index;
-            buttonGO.GetComponent<Button>().onClick.AddListener(() => {
+            buttonGO.GetComponent<Button>().onClick.AddListener(() =>
+            {
                 ClearChoices();
                 story.ChooseChoiceIndex(choiceIndex);
                 ContinueStory();
                 dialoguePanel.SetActive(true);
             });
         }
-        
+
         showingChoices = false;
     }
 
@@ -177,5 +186,21 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = line;
         isTyping = false;
         waitingForInput = true;
+    }
+    
+    public IEnumerator FadeAndLoadScene(string sceneName)
+    {
+        float duration = 2f;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            fadePanel.alpha = Mathf.Lerp(0, 1, time / duration);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f); // pausa negra
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 }

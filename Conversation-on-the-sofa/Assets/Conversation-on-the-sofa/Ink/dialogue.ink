@@ -112,7 +112,8 @@ Ethan: Do you want me to go?
 Ethan: It almost seems like another life
 
 + [Sometimes I ask myself the same question]
-    Amy: Sometimes I ask myself the same question, and I think I didn't know how to show it.
+    Amy: Sometimes I ask myself the same question
+    Amy: And I think I didn't know how to show it.
     -> acceptance1
 
 +[Sure, the other life you always wanted]
@@ -167,7 +168,8 @@ Ethan: It was hard to do if I didn't know if you wanted me there.
 Ethan: I think we both fail in that
 
 +[Do you think we would be in a different place if we had talked earlier?]
-    Amy: Do you think we would be in a different place if we had talked earlier?
+    Amy: Do you think...
+    Amy We would be in a different place if we had talked earlier?
     Ethan: I don't know. But I would have liked to know.
     #Sad smile
     -> final
@@ -254,9 +256,6 @@ paso por aqui
 -> final
 
 === final ===
-# fade out
-
-# Texto final
-(Sometimes it's not about fixing, it's just about understanding why it broke.)
+# fadeOut
 
 -> END
