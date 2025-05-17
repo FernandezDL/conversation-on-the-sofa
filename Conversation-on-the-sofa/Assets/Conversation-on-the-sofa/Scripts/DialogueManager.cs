@@ -7,13 +7,22 @@ using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("Dialogue")]
     public TextAsset inkJSONAsset;
     public TextMeshProUGUI dialogueText;
-    public GameObject choiceButtonPrefab;
-    public Transform choicesContainer;
     public GameObject dialoguePanel;
 
+    [Header("Choice Buttons")]
+    public GameObject choiceButtonPrefab;
+    public Transform choicesContainer;
+    
+    [Header("Slap Popup")]
+    public GameObject slapPopup;
+    private bool slapPopupActive = false;
+
+    [Header("Male Character")]
     public GuyPath guyPath;
+
 
     private Story story;
     private Coroutine typingCoroutine;
@@ -26,6 +35,9 @@ public class DialogueManager : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        if (slapPopup != null)
+            slapPopup.SetActive(false);
 
         if (inkJSONAsset != null)
         {
@@ -41,6 +53,17 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (slapPopupActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
+            {
+                slapPopup.SetActive(false);
+                slapPopupActive = false;
+                ContinueStory(); // Continue story
+            }
+            return; // Can't continue without closing popup
+        }
+
         if (waitingForInput && !showingChoices)
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
@@ -55,6 +78,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (story.canContinue)
         { 
+            dialoguePanel.SetActive(true);
             string line = story.Continue().Trim();
             List<string> tags = story.currentTags;
             
@@ -67,9 +91,22 @@ public class DialogueManager : MonoBehaviour
             {
                 StartCoroutine(guyPath.StandThenWalk());
             }
+            else if (tags.Contains("slap"))
+            {
+                // Open Popup
+                slapPopup.SetActive(true);
+                slapPopupActive = true;
+
+                // Hide DialoguePanel and buttons
+                dialoguePanel.SetActive(false);
+                choicesContainer.gameObject.SetActive(false);
+
+                return;
+            }
         }
         else if (story.currentChoices.Count > 0)
         {
+            choicesContainer.gameObject.SetActive(true);
             ShowChoices();
             waitingForInput = false;
             isTyping = false;
