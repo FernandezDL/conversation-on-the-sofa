@@ -2,6 +2,7 @@ using Ink.Runtime;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class DialogueManager : MonoBehaviour
     public Transform choicesContainer;
 
     private Story story;
-    private string currentLine;
+    private string currentLine="";
+    private Coroutine typingCoroutine;
+    private bool isTyping = false;
+
     private bool waitingForInput = false;
     private bool showingChoices = false;
 
@@ -34,47 +38,59 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (waitingForInput && !showingChoices)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            // Si aún se está escribiendo, salta al final de la línea
+            if (isTyping)
             {
-                ContinueStory();
+                StopCoroutine(typingCoroutine);
+                dialogueText.text = currentLine;
+                isTyping = false;
+                waitingForInput = true;
+            }
+            // Si ya se terminó de escribir y el jugador presiona para continuar
+            else if (waitingForInput && !showingChoices)
+            {
+                ContinueStory(); // ✅ esto activará TypeLine de nuevo
             }
         }
     }
+
 
     void ContinueStory()
     {
         if (story.canContinue)
         {
-            string line = story.Continue().Trim();
-            dialogueText.text = line;
-            Debug.Log("Texto de Ink: " + line);
-            waitingForInput = true;
-            showingChoices = false;
+            currentLine = story.Continue().Trim();
+
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+            }
+
+            typingCoroutine = StartCoroutine(TypeLine(currentLine));
         }
         else if (story.currentChoices.Count > 0)
         {
             ShowChoices();
-            showingChoices = true;
             waitingForInput = false;
+            isTyping = false;
         }
         else
         {
-            dialogueText.text = "Fin del diálogo.";
+            dialogueText.text = "";
             waitingForInput = false;
-            showingChoices = false;
+            isTyping = false;
         }
     }
 
     void ShowChoices()
     {
         dialogueText.text  ="";
-        // Limpia botones anteriores
+
         foreach (Transform child in choicesContainer)
             Destroy(child.gameObject);
-
-        Debug.Log("Total de opciones disponibles: " + story.currentChoices.Count);
 
         for (int i = 0; i < story.currentChoices.Count; i++)
         {
@@ -89,7 +105,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("No se encontró TextMeshProUGUI dentro del botón.");
+                Debug.LogWarning("There's no TextMeshProUGUI inside the button.");
             }
 
             int choiceIndex = choice.index;
@@ -105,5 +121,25 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (Transform child in choicesContainer)
             Destroy(child.gameObject);
+    }
+
+    IEnumerator TypeLine(string line)
+    {
+        dialogueText.text = "";
+        isTyping = true;
+        waitingForInput = false;
+
+        foreach (char c in line)
+        {
+            dialogueText.text += c;
+            if (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.Return))
+                yield return new WaitForSeconds(0.02f);
+            else
+                break;
+        }
+
+        dialogueText.text = line;
+        isTyping = false;
+        waitingForInput = true;
     }
 }

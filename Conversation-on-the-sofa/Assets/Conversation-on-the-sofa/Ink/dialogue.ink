@@ -13,9 +13,9 @@ Amy: I made you a coffee...
     ->nostalgia1
 
 === neutral1 ===
-Ethan: Thanks, I wasn't sure if I should, but here I am.
+Ethan: Thanks for the coffee. I wasn't sure if I should come either, but here I am.
 
-+[I'm glad you did, I think there are things to talk about.]
++[I'm glad you did]
     Amy: I'm glad you did, I think there are things to talk about.
     Ethan: I'm glad too, although I don't know if we're too late to talk...
     ->neutral2
@@ -40,22 +40,23 @@ Ethan: Thanks, I wasn't sure if I should, but here I am.
     -> final
 
 +[You don't seem to want to stay and you don't want to leave either.]
-    Amy: It's just that... I'm having a hard time seeing your motivation. You don't seem to want to stay and you don't want to leave either.
+    Amy: It's just that... I'm having a hard time seeing your motivation. 
+    Amy: You don't seem to want to stay and you don't want to leave either.
     ->confution
     
 === confution ===
 Ethan: Do you want me to go?
 
-+[Yes, it's not worth it to keep hurting each other.]
++[Yes]
     Amy: Yes, it's not worth it to keep hurting each other.
     ->silence
     
-+[I don't know if I want you to leave or stay different...]
++[I don't know]
     Amy: I don't know if I want you to leave or stay different...
     -> silence
 
 === neutral2 ===
-+[We were late for a lot of things, and talking was never our strength.]
++[We were late for a lot of things]
     Amy: We were late for a lot of things, and talking was never our strength.
     Ethan: Maybe that's why we're here, to try one last time.
     Amy: I don't know if this will make a difference, but maybe it can help me to let go of what was hurting.
@@ -63,7 +64,7 @@ Ethan: Do you want me to go?
     Ethan: At least now... it hurts differently.
     ->silence
     
-+[Maybe so, but I don't want to be left in doubt.]
++[Maybe]
     Amy: Maybe so, but I don't want to be left in doubt.
     Ethan: So let's not keep quiet today
     ->realism1
@@ -80,7 +81,7 @@ Ethan: Do you want me to go?
     # * Sighs *
     ->silence
     
-+[Was there someone else? Sometimes I thought about it, and I can't stay in doubt.]
++[Was there someone else?]
     Amy: Was there someone else? Sometimes I thought about it, and I can't stay in doubt.
     Ethan: No, there was no one else. 
     Ethan: But for you to ask... that really hurts me.
@@ -89,14 +90,14 @@ Ethan: Do you want me to go?
     ->silence
     
 === pain1 ===
-+[I didn't need you to be perfect, I just didn't need you to disappear quietly.]
++[I didn't need you to be perfect]
     Amy: I didn't need you to be perfect, I just didn't need you to disappear quietly.
     Ethan: And I needed you to see me, even if I didn't know how to show myself.
     Amy: We didn't talk when we had the time, but at least we talked about it
     Ethan: If we can't go back, at least we can close this chapter well.
     -> lowerLook
     
-+[Then maybe you were right to leave, at least a part of me was left whole.]
++[Then maybe you were right to leave]
     Amy: Then maybe you were right to leave, at least a part of me was left whole.
     Ethan: I will never forgive myself for having broken the other part.
     ->lowerLook
@@ -104,8 +105,23 @@ Ethan: Do you want me to go?
 === nostalgia1 ===
 Ethan: It almost seems like another life
 
-+ [Sometimes I ask myself the same question, and I think I didn't know how to show it.]
++ [Sometimes I ask myself the same question]
     Amy: Sometimes I ask myself the same question, and I think I didn't know how to show it.
+    -> acceptance1
+
++[Sure, the other life you always wanted]
+    Amy: Sure, the other life you always wanted
+    -> contradiction1
+
++[There were days when I felt we were working, others when we were not.]
+    Amy: There were days when I felt we were working, others when we were not.
+    -> insecurity1
+
+=== nostalgia2 ===
+Ethan: It almost seems like another life
+
++ [Sometimes I think about us]
+    Amy: Sometimes I think about what happened to us and how I failed the relationship..
     -> acceptance1
 
 +[Sure, the other life you always wanted]
@@ -119,19 +135,19 @@ Ethan: It almost seems like another life
 === insecurity1 ===
 Ethan: It was hard to do if I didn't know if you wanted me there.
 
-+[Maybe neither of us knew how to stay and that's why we are now so broken....]
-    Amy: Maybe neither of us knew how to stay and that's why we are now so broken....
++[Maybe neither of us knew how to stay]
+    Amy: Maybe neither of us knew how to stay and that's why we are now so broken...
     Ethan: Yeah, maybe
     Ethan: Do you think it's time to end it? Before it hurts more?
     Amy: Yes...
     ->silence
 
-+[It wasn't that I didn't love you, it was that I didn't know how to ask you to stay.]
++[It wasn't that I didn't love you.]
     Amy: It wasn't that I didn't love you, it was that I didn't know how to ask you to stay.
     -> vulnerability1
 
 === vulnerability1===
-+[I don't know if it's too late, but I don't want to keep quiet anymore.]
++[I don't wat to keep quiet anymore]
     Amy: I don't know if it's too late, but I don't want to keep quiet anymore.
     Ethan: Then don't. What if we talk for real?
     -> silence
@@ -159,12 +175,12 @@ Ethan: I think we both fail in that
 === contradiction1 ===
 Ethan: Again with that...
 
-+ [And what do you want? It is the reality that we have lived for a long time]
++ [It is the reality that we have lived for a long time]
     Amy: And what do you want? It is the reality that we have lived for a long time
     Ethan: That's your reality! Not the reality of both of us
     -> anger1
 
-+[You know what? Sometimes I wish your life with me was enough]
++[Sometimes I wish your life with me was enough]
     Amy: You know what? Sometimes I wish your life with me was enough
     Amy: But I see it's not...
     Ethan: I wanted that, too
@@ -179,7 +195,7 @@ Ethan: Again with that...
     -> goodbye
 
 === anger1 ===
-+[My reality? Yours was to keep quiet about everything and pretend that you were]
++[My reality?]
     Amy: My reality? Yours was to keep quiet about everything and pretend that you were
     Ethan: And yours was to say everything was fine while treating me like I was in the way.
     Ethan: You're not the only one who put up with things, Elena, but yours was always more important, wasn't it?
@@ -188,22 +204,21 @@ Ethan: Again with that...
     # *Shock face *
     ->slap
 
-+[You know what? This is getting nowhere...]
++[This is getting nowhere...]
     Amy: You know what? This is getting nowhere...
     Amy: You've made your decision, and I'm not in it.
     Ethan: I never said that
     -> resignation1
 
 === resignation1 ===
-+[Maybe, but that's the way it's felt for a long time.]
++[That's the way it's felt for a long time.]
     Amy: Maybe, but that's the way it's felt for a long time.
     -> silence
 
-+[No need to say it, just don't keep pretending you don't know...]
++[No need to say it...]
     Amy: No need to say it, just don't keep pretending you don't know...
     ->silence
     
-
 === silence ===
 # * Silence *
 -> final
