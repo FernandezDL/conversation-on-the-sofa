@@ -21,22 +21,17 @@ public class GuyPath : MonoBehaviour
         }
 
         currentPointIndex = 0;
-
-        StartCoroutine(StandThenWalk());
     }
 
-    IEnumerator StandThenWalk()
+    public IEnumerator StandThenWalk()
     {
-        // 🔹 Detenemos movimiento desde el inicio por si acaso
+        // Stop walking (just in case)
         walking = false;
 
-        // 🔹 Disparar trigger de animación "stand"
-        animator.SetTrigger("stand");
+        animator.SetTrigger("stand"); //Start standing animation
+        yield return new WaitForSeconds(1.5f); // Wait for the animation
 
-        // 🔹 Esperar la duración de la animación de "stand"
-        yield return new WaitForSeconds(GetAnimationLength("stand"));
-
-        // 🔹 Luego activar animación de caminar
+        // Start walking
         animator.SetTrigger("startWalking");
         walking = true;
     }
@@ -47,7 +42,7 @@ public class GuyPath : MonoBehaviour
         {
             Transform targetPoint = pathPoints[currentPointIndex];
 
-            // Calcular dirección y rotación deseada
+            // Rotate to the next point
             Vector3 direction = (targetPoint.position - transform.position).normalized;
             if (direction == Vector3.zero) return;
 
@@ -55,13 +50,11 @@ public class GuyPath : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 targetRotation,
-                180 * Time.deltaTime // velocidad de giro
+                180 * Time.deltaTime
             );
 
-            // Calcular diferencia de ángulo
             float angleDifference = Quaternion.Angle(transform.rotation, targetRotation);
 
-            // Solo mover si ya casi terminó de rotar (tolerancia 5 grados)
             if (angleDifference < 5f)
             {
                 transform.position = Vector3.MoveTowards(
@@ -70,25 +63,12 @@ public class GuyPath : MonoBehaviour
                     speed * Time.deltaTime
                 );
 
-                // Avanzar al siguiente punto si ya llegó
+                // walk to next point
                 if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
                 {
                     currentPointIndex++;
                 }
             }
         }
-    }
-
-    float GetAnimationLength(string stateName)
-    {
-        RuntimeAnimatorController ac = animator.runtimeAnimatorController;
-        foreach (AnimationClip clip in ac.animationClips)
-        {
-            if (clip.name == stateName)
-            {
-                return clip.length;
-            }
-        }
-        return 1f;
     }
 }

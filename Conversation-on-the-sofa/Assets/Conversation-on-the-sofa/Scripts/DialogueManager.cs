@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class DialogueManager : MonoBehaviour
     public Transform choicesContainer;
     public GameObject dialoguePanel;
 
+    public GuyPath guyPath;
+
     private Story story;
-    private string currentLine="";
     private Coroutine typingCoroutine;
     private bool isTyping = false;
 
@@ -52,10 +54,19 @@ public class DialogueManager : MonoBehaviour
     void ContinueStory()
     {
         if (story.canContinue)
-        {
+        { 
             string line = story.Continue().Trim();
-            StopAllCoroutines(); 
-            StartCoroutine(TypeLine(line));
+            List<string> tags = story.currentTags;
+            
+           if (typingCoroutine != null)
+                StopCoroutine(typingCoroutine);
+
+            typingCoroutine = StartCoroutine(TypeLine(line));
+
+            if (tags.Contains("walksAway"))
+            {
+                StartCoroutine(guyPath.StandThenWalk());
+            }
         }
         else if (story.currentChoices.Count > 0)
         {

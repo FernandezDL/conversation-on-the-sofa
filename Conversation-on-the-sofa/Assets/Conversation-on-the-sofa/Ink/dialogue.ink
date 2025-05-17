@@ -182,7 +182,8 @@ Ethan: I think we both fail in that
 Ethan: Again with that...
 
 + [It is the reality that we have lived for a long time]
-    Amy: And what do you want? It is the reality that we have lived for a long time
+    Amy: And what do you want? 
+    Amy: It is the reality that we have lived for a long time
     Ethan: That's your reality! Not the reality of both of us
     -> anger1
 
@@ -202,12 +203,13 @@ Ethan: Again with that...
 
 === anger1 ===
 +[My reality?]
-    Amy: My reality? Yours was to keep quiet about everything and pretend that you were
-    Ethan: And yours was to say everything was fine while treating me like I was in the way.
-    Ethan: You're not the only one who put up with things, Elena, but yours was always more important, wasn't it?
+    Amy: My reality? Yours was to keep quiet about everything
+    Amy: And then pretend that you were here
+    Ethan: And yours was to say everything was fine
+    Ethan: And then treating me like I was in the way.
+    Ethan: You're not the only one who put up with things, Amy.
+    Ethan: But your stuff was always more important, wasn't it?
     
-    # * Slap in the face *
-    # *Shock face *
     ->slap
 
 +[This is getting nowhere...]
@@ -246,7 +248,8 @@ Ethan: Goodbye, Amy
 -> walksAway
 
 === walksAway ===
-# * Gets up and walks away *
+# walksAway 
+paso por aqui
 -> final
 
 === final ===
