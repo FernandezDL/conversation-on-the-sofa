@@ -38,38 +38,23 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        if (waitingForInput && !showingChoices)
         {
-            // Si aún se está escribiendo, salta al final de la línea
-            if (isTyping)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
             {
-                StopCoroutine(typingCoroutine);
-                dialogueText.text = currentLine;
-                isTyping = false;
-                waitingForInput = true;
-            }
-            // Si ya se terminó de escribir y el jugador presiona para continuar
-            else if (waitingForInput && !showingChoices)
-            {
-                ContinueStory(); // ✅ esto activará TypeLine de nuevo
+                waitingForInput = false;
+                ContinueStory();
             }
         }
     }
-
 
     void ContinueStory()
     {
         if (story.canContinue)
         {
-            currentLine = story.Continue().Trim();
-
-            if (typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-                typingCoroutine = null;
-            }
-
-            typingCoroutine = StartCoroutine(TypeLine(currentLine));
+            string line = story.Continue().Trim();
+            StopAllCoroutines(); 
+            StartCoroutine(TypeLine(line));
         }
         else if (story.currentChoices.Count > 0)
         {
@@ -92,6 +77,7 @@ public class DialogueManager : MonoBehaviour
         foreach (Transform child in choicesContainer)
             Destroy(child.gameObject);
 
+        showingChoices = true;
         for (int i = 0; i < story.currentChoices.Count; i++)
         {
             Choice choice = story.currentChoices[i];
@@ -115,6 +101,8 @@ public class DialogueManager : MonoBehaviour
                 ContinueStory();
             });
         }
+        
+        showingChoices = false;
     }
 
     void ClearChoices()
@@ -132,10 +120,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in line)
         {
             dialogueText.text += c;
-            if (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.Return))
-                yield return new WaitForSeconds(0.02f);
-            else
-                break;
+            yield return new WaitForSeconds(0.02f); // writing speed
         }
 
         dialogueText.text = line;
