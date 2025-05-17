@@ -86,10 +86,12 @@ Ethan: Do you want me to go?
     ->silence
     
 +[Was there someone else?]
-    Amy: Was there someone else? Sometimes I thought about it, and I can't stay in doubt.
+    Amy: Was there someone else? 
+    Amy: Sometimes I thought about it, and I can't stay in doubt.
     Ethan: No, there was no one else. 
     Ethan: But for you to ask... that really hurts me.
-    Ethan: If you doubt me, it's because I failed in something and I'm sorry I made you stop feeling safe with me.
+    Ethan: If you doubt me, it's because I failed in something
+    Ethan: And I'm sorry I made you stop feeling safe with me.
     Amy: I just needed to know, thank you
     ->silence
     
