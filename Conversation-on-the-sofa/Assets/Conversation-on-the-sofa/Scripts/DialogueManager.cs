@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public GameObject choiceButtonPrefab;
     public Transform choicesContainer;
+    public GameObject dialoguePanel;
 
     private Story story;
     private string currentLine="";
@@ -73,6 +74,7 @@ public class DialogueManager : MonoBehaviour
     void ShowChoices()
     {
         dialogueText.text  ="";
+        dialoguePanel.SetActive(false); 
 
         foreach (Transform child in choicesContainer)
             Destroy(child.gameObject);
@@ -99,6 +101,7 @@ public class DialogueManager : MonoBehaviour
                 ClearChoices();
                 story.ChooseChoiceIndex(choiceIndex);
                 ContinueStory();
+                dialoguePanel.SetActive(true);
             });
         }
         

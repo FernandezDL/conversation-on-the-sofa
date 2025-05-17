@@ -13,11 +13,13 @@ Amy: I made you a coffee...
     ->nostalgia1
 
 === neutral1 ===
-Ethan: Thanks for the coffee. I wasn't sure if I should come either, but here I am.
+Ethan: Thanks for the coffee. 
+Ethan: I wasn't sure if I should come either, but here I am.
 
 +[I'm glad you did]
     Amy: I'm glad you did, I think there are things to talk about.
-    Ethan: I'm glad too, although I don't know if we're too late to talk...
+    Ethan: I'm glad too
+    Ethan: Although I don't know if we're too late to talk...
     ->neutral2
     
 +[I didn't expect you to do it for me]
@@ -57,9 +59,11 @@ Ethan: Do you want me to go?
 
 === neutral2 ===
 +[We were late for a lot of things]
-    Amy: We were late for a lot of things, and talking was never our strength.
+    Amy: We were late for a lot of things
+    Amy: And talking was never our strength.
     Ethan: Maybe that's why we're here, to try one last time.
-    Amy: I don't know if this will make a difference, but maybe it can help me to let go of what was hurting.
+    Amy: I don't know if this will make a difference
+    Amy: But maybe it can help me to let go of what was hurting.
     Ethan: And me to look back without so much noise
     Ethan: At least now... it hurts differently.
     ->silence
