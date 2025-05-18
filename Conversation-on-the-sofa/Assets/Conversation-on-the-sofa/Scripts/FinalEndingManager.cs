@@ -33,7 +33,7 @@ public class FinalEndingManager : MonoBehaviour
 
     public void RestartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("House");
     }
 
     public void ExitGame()

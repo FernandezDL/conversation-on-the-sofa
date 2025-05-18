@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 508812437}
   - component: {fileID: 508812436}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: QuitBttn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 508812437}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 455286044}
+        m_TargetAssemblyTypeName: FinalEndingManager, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &508812437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,7 +775,7 @@ GameObject:
   - component: {fileID: 1187545239}
   - component: {fileID: 1187545238}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PlayAgainBttn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,7 +844,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1187545239}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 455286044}
+        m_TargetAssemblyTypeName: FinalEndingManager, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1187545239
 MonoBehaviour:
   m_ObjectHideFlags: 0
