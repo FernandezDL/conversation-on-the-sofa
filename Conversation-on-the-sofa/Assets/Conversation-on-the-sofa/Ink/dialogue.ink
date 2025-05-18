@@ -169,7 +169,7 @@ Ethan: I think we both fail in that
 
 +[Do you think we would be in a different place if we had talked earlier?]
     Amy: Do you think...
-    Amy We would be in a different place if we had talked earlier?
+    Amy: We would be in a different place if we had talked earlier?
     Ethan: I don't know. But I would have liked to know.
     #Sad smile
     -> final

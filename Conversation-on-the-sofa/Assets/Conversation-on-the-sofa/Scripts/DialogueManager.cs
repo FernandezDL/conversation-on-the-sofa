@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Fade Panel")]
     public CanvasGroup fadePanel;
+    public GameObject fadeCanvas;
 
     private Story story;
     private Coroutine typingCoroutine;
@@ -108,6 +109,7 @@ public class DialogueManager : MonoBehaviour
             }
             else if (tags.Contains("fadeOut"))
             {
+                fadeCanvas.SetActive(true);
                 StartCoroutine(FadeAndLoadScene("FinalScene"));
                 return;
             }
