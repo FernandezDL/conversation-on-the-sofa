@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -28,12 +29,20 @@ public class DialogueManager : MonoBehaviour
     public CanvasGroup fadePanel;
     public GameObject fadeCanvas;
 
+    [Header("Info")]
+    public GameObject infoButton;
+    public GameObject nextButton;
+    public GameObject prevButton;
+    public GameObject InfoCanvas;
+    public GameObject closeButton;
+
     private Story story;
     private Coroutine typingCoroutine;
     private bool isTyping = false;
 
     private bool waitingForInput = false;
     private bool showingChoices = false;
+    private bool infoPanelActive = false;
 
     void Start()
     {
@@ -57,6 +66,9 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (infoPanelActive)
+            return;
+
         if (slapPopupActive)
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
@@ -189,7 +201,7 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
         waitingForInput = true;
     }
-    
+
     public IEnumerator FadeAndLoadScene(string sceneName)
     {
         float duration = 2f;
@@ -204,5 +216,28 @@ public class DialogueManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f); // pausa negra
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+
+    public void OnInfoButtonClicked()
+    {
+        InfoCanvas.SetActive(true);
+        infoPanelActive = true;
+    }
+
+    public void OnCloseButtonClicked()
+    {
+        InfoCanvas.SetActive(false);
+        infoPanelActive = false;
+
+        if (waitingForInput)
+        {
+            dialoguePanel.SetActive(true);
+        }
+
+        if (story != null && story.currentChoices.Count > 0)
+        {
+            choicesContainer.gameObject.SetActive(true);
+            ShowChoices();
+        }
     }
 }
