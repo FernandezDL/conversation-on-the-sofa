@@ -252,7 +252,6 @@ Ethan: Goodbye, Amy
 
 === walksAway ===
 # walksAway 
-paso por aqui
 -> final
 
 === final ===

@@ -1329,6 +1329,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathContainer: {fileID: 1372465853}
   speed: 2
+  fadePanel: {fileID: 1899067587}
+  fadeCanvas: {fileID: 1349524597}
 --- !u!1 &731429287
 GameObject:
   m_ObjectHideFlags: 0

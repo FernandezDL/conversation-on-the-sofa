@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GuyPath : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class GuyPath : MonoBehaviour
     private int currentPointIndex = 0;
     private bool walking = false;
     private Animator animator;
+
+    [Header("Fade Panel")]
+    public CanvasGroup fadePanel;
+    public GameObject fadeCanvas;
+    private bool triggeredEnding = false;
 
     void Start()
     {
@@ -67,8 +73,31 @@ public class GuyPath : MonoBehaviour
                 if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
                 {
                     currentPointIndex++;
+
+                    if (!triggeredEnding && currentPointIndex == pathPoints.Length - 6)
+                    {
+                        triggeredEnding = true;
+                        fadeCanvas.SetActive(true);
+                        StartCoroutine(FadeAndLoadFinalScene());
+                    }
                 }
             }
         }
+    }
+
+    IEnumerator FadeAndLoadFinalScene()
+    {
+        float duration = 1.5f;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            fadePanel.alpha = Mathf.Lerp(0, 1, time / duration);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("FinalScene");
     }
 }

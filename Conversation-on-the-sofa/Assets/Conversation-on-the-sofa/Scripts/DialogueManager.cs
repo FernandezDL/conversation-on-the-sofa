@@ -66,6 +66,12 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
         if (infoPanelActive)
             return;
 
@@ -105,6 +111,7 @@ public class DialogueManager : MonoBehaviour
 
             if (tags.Contains("walksAway"))
             {
+                dialoguePanel.SetActive(false);
                 StartCoroutine(guyPath.StandThenWalk());
             }
             else if (tags.Contains("slap"))

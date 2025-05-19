@@ -13,6 +13,9 @@ public class FinalEndingManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         finalText.text = "";
         buttonPanel.SetActive(false);
         StartCoroutine(TypeSentence());
@@ -33,7 +36,7 @@ public class FinalEndingManager : MonoBehaviour
 
     public void RestartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("House");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("FirstScene");
     }
 
     public void ExitGame()
