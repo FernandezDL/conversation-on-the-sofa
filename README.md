@@ -1,10 +1,10 @@
 # Conversation on the sofa
 ## Index
-- [Description]()
-- [Executable]()
-- [Decision tree]()
-- [Credits]()
-- [Author]()
+- [Description](https://github.com/FernandezDL/conversation-on-the-sofa/blob/main/README.md#description)
+- [Executable](https://github.com/FernandezDL/conversation-on-the-sofa/blob/main/README.md#executable)
+- [Decision tree](https://github.com/FernandezDL/conversation-on-the-sofa/blob/main/README.md#decision-tree)
+- [Credits](https://github.com/FernandezDL/conversation-on-the-sofa/blob/main/README.md#credits)
+- [Author](https://github.com/FernandezDL/conversation-on-the-sofa/blob/main/README.md#author)
 
 ## Description
 Video game to compete for a VFS scholarship
