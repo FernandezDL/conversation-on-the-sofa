@@ -239,8 +239,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageComponent: {fileID: 584880421}
   instructionImages:
+  - {fileID: 21300000, guid: 55987d05258823e48ab2142832094da4, type: 3}
   - {fileID: 21300000, guid: 3abad02c40a1ba84db9bb91191f48a9e, type: 3}
   - {fileID: 21300000, guid: 9da98e8be48647e449303c4d9a2503f6, type: 3}
+  - {fileID: 21300000, guid: b44deccf018cdf24383ea42e4931a360, type: 3}
 --- !u!1 &85944341
 GameObject:
   m_ObjectHideFlags: 0
